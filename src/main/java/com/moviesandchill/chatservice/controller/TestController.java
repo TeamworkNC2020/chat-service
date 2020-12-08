@@ -1,4 +1,4 @@
-package com.weldnor.chatservice.controller;
+package com.moviesandchill.chatservice.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

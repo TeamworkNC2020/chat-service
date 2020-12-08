@@ -1,4 +1,4 @@
-package com.weldnor.chatservice;
+package com.moviesandchill.chatservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
