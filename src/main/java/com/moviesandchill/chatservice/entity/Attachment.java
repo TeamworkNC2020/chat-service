@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 public class Attachment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long attachmentId;
 
     private long messageId;

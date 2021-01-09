@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long messageId;
 
     private long chatId;
