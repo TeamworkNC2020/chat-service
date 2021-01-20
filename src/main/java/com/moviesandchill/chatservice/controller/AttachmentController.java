@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController()
 @RequestMapping(
-        path = "api/attachments",
+        path = "api/v1/attachments",
         produces = "application/json"
 )
 public class AttachmentController {
