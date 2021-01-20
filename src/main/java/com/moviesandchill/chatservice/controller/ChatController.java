@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController()
 @RequestMapping(
-        path = "api/chats",
+        path = "api/v1/chats",
         produces = "application/json"
 )
 public class ChatController {
