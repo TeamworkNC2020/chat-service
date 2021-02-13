@@ -1,10 +1,8 @@
 package com.moviesandchill.chatservice.controller;
 
 import com.moviesandchill.chatservice.entity.Attachment;
-import com.moviesandchill.chatservice.repository.AttachmentRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.moviesandchill.chatservice.service.AttachmentService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,14 +13,24 @@ import java.util.List;
 )
 public class AttachmentController {
 
-    private final AttachmentRepository attachmentRepository;
+    private final AttachmentService attachmentService;
 
-    public AttachmentController(AttachmentRepository attachmentRepository) {
-        this.attachmentRepository = attachmentRepository;
+    public AttachmentController(AttachmentService attachmentService) {
+        this.attachmentService = attachmentService;
     }
 
     @GetMapping()
     private List<Attachment> getAllAttachments() {
-        return attachmentRepository.findAll();
+        return attachmentService.getAllAttachments();
+    }
+
+    @GetMapping("/{id}")
+    private Attachment getAttachmentById(@PathVariable("id") long attachmentId) {
+        return attachmentService.getAttachmentById(attachmentId).orElseThrow();
+    }
+
+    @DeleteMapping("/{id}")
+    private void deleteChatById(@PathVariable("id") long attachmentId) {
+        attachmentService.deleteAttachmentById(attachmentId);
     }
 }
