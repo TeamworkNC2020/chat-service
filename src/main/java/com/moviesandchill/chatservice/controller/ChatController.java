@@ -1,10 +1,8 @@
 package com.moviesandchill.chatservice.controller;
 
 import com.moviesandchill.chatservice.entity.Chat;
-import com.moviesandchill.chatservice.repository.ChatRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.moviesandchill.chatservice.service.ChatService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,14 +13,24 @@ import java.util.List;
 )
 public class ChatController {
 
-    private final ChatRepository chatRepository;
+    private final ChatService chatService;
 
-    public ChatController(ChatRepository chatRepository) {
-        this.chatRepository = chatRepository;
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
     }
 
     @GetMapping()
     private List<Chat> getAllChats() {
-        return chatRepository.findAll();
+        return chatService.getAllChats();
+    }
+
+    @GetMapping("/{id}")
+    private Chat getChatById(@PathVariable("id") long chatId) {
+        return chatService.getChatById(chatId).orElseThrow();
+    }
+
+    @DeleteMapping("/{id}")
+    private void deleteChatById(@PathVariable("id") long chatId) {
+        chatService.deleteChatById(chatId);
     }
 }
