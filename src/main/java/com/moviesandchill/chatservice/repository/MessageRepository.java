@@ -13,5 +13,7 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
 
     Optional<Message> findByMessageId(long messageId);
 
+    List<Message> findByChatId(long chatId);
+
     void deleteByMessageId(long messageId);
 }

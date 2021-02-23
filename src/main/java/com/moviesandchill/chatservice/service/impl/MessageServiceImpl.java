@@ -30,6 +30,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public List<Message> getMessagesByChatId(long chatId) {
+        return messageRepository.findByChatId(chatId);
+    }
+
+    @Override
     public void deleteMessageById(long messageId) {
         messageRepository.deleteByMessageId(messageId);
     }
