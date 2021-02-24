@@ -12,5 +12,7 @@ public interface MessageService {
 
     List<Message> getMessagesByChatId(long chatId);
 
+    Message addMessage(Message message);
+
     void deleteMessageById(long messageId);
 }
