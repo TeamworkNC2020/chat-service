@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Embeddable
 @Data
 public class UnreadMessagePK implements Serializable {
-    private long message_id;
+    private long messageId;
 
     private long userId;
 }

@@ -11,9 +11,12 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // FIXME
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("http://localhost:4200", "http://localhost:8080", "http://localhost:8081", "https://mak-21-stream.herokuapp.com")
+                .setAllowedOrigins(
+                        "http://localhost:4200",
+                        "http://localhost:8080",
+                        "http://localhost:8081",
+                        "https://mak-21-stream.herokuapp.com")
                 .withSockJS();
     }
 
