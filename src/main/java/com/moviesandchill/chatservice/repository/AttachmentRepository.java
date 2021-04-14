@@ -1,16 +1,11 @@
 package com.moviesandchill.chatservice.repository;
 
 import com.moviesandchill.chatservice.entity.Attachment;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface AttachmentRepository extends CrudRepository<Attachment, Long> {
-    @Override
-    @SuppressWarnings("NullableProblems")
-    List<Attachment> findAll();
-
+public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
     Optional<Attachment> findByAttachmentId(long attachmentId);
 
     void deleteByAttachmentId(long attachmentId);

@@ -5,61 +5,9 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <script src="webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
-    <script src="webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-<input id="sessionIdInput" type="text">
-<button onclick="onConnectButtonClick()">connect</button>
-<input id="messageInput" type="text">
-<button onclick="onSendButtonClick()">send</button>
-<div id="output"></div>
-
-
-<script>
-    let ws = new SockJS(document.location.origin + '/ws');
-    let stomp = Stomp.over(ws);
-
-    stomp.connect();
-
-    const sessionIdInputRef = document.querySelector('#sessionIdInput');
-    const messageInputRef = document.querySelector('#messageInput');
-    const outputRef = document.querySelector('#output');
-
-    let sessionId;
-
-    function onConnectButtonClick() {
-        sessionId = sessionIdInputRef.value;
-        connectToSession();
-    }
-
-    function onSendButtonClick() {
-        const message = messageInputRef.value;
-        sendMessage(message);
-    }
-
-    function connectToSession() {
-        const topic = '/sessions/' + sessionId;
-        stomp.subscribe(topic, function (message) {
-            onMessageReceived(message);
-        });
-    }
-
-
-    function onMessageReceived(message) {
-        console.log(message)
-        outputRef.innerHTML += message;
-    }
-
-    function sendMessage(message) {
-        const topic = '/sessions/' + sessionId;
-        console.log(topic);
-        console.log(message);
-        stomp.send(topic, {}, message);
-    }
-
-
-</script>
+<h1>hello world!</h1>
 </body>
 </html>
