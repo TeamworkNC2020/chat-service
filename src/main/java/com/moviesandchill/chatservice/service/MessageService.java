@@ -1,18 +1,18 @@
 package com.moviesandchill.chatservice.service;
 
-import com.moviesandchill.chatservice.entity.Message;
+import com.moviesandchill.chatservice.dto.message.MessageDto;
+import com.moviesandchill.chatservice.dto.message.NewMessageDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface MessageService {
-    List<Message> getAllMessages();
+    List<MessageDto> getAllMessages();
 
-    Optional<Message> getMessageById(long messageId);
+    MessageDto addMessage(NewMessageDto newMessageDto);
 
-    List<Message> getMessagesByChatId(long chatId);
+    List<MessageDto> getMessagesByChatId(long chatId);
 
-    Message addMessage(Message message);
+    MessageDto getMessageById(long messageId);
 
     void deleteMessageById(long messageId);
 }
