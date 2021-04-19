@@ -1,10 +1,8 @@
 package com.moviesandchill.chatservice.controller;
 
-import com.moviesandchill.chatservice.dto.message.MessageDto;
-import com.moviesandchill.chatservice.dto.message.NewMessageDto;
-import com.moviesandchill.chatservice.entity.Chat;
+import com.moviesandchill.chatservice.dto.chat.ChatDto;
+import com.moviesandchill.chatservice.dto.chat.NewChatDto;
 import com.moviesandchill.chatservice.service.ChatService;
-import com.moviesandchill.chatservice.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +16,25 @@ import java.util.List;
 public class ChatController {
 
     private ChatService chatService;
-    private MessageService messageService;
 
-
-    @GetMapping()
-    public List<Chat> getAllChats() {
+    @GetMapping
+    public List<ChatDto> getAllChats() {
         return chatService.getAllChats();
     }
 
+    @PostMapping
+    public ChatDto addChat(NewChatDto newChatDto) {
+        return chatService.addChat(newChatDto);
+    }
+
+    @DeleteMapping
+    public void deleteAllChats() {
+        chatService.deleteAllChats();
+    }
+
     @GetMapping("/{id}")
-    public Chat getChatById(@PathVariable("id") long chatId) {
-        return chatService.getChatById(chatId).orElseThrow();
+    public ChatDto getChatById(@PathVariable("id") long chatId) {
+        return chatService.getChatById(chatId);
     }
 
     @DeleteMapping("/{id}")
@@ -36,24 +42,8 @@ public class ChatController {
         chatService.deleteChatById(chatId);
     }
 
-    @GetMapping("/{id}/messages")
-    public List<MessageDto> getMessagesByChatId(@PathVariable("id") long chatId) {
-        return messageService.getMessagesByChatId(chatId);
-    }
-
-    @PostMapping("/{id}/messages")
-    public MessageDto addMessage(@PathVariable("id") long chatId, @RequestBody NewMessageDto newMessageDto) {
-        newMessageDto.setChatId(chatId);
-        return messageService.addMessage(newMessageDto);
-    }
-
     @Autowired
     public void setChatService(ChatService chatService) {
         this.chatService = chatService;
-    }
-
-    @Autowired
-    public void setMessageService(MessageService messageService) {
-        this.messageService = messageService;
     }
 }
