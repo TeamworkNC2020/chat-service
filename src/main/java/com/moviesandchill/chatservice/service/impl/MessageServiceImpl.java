@@ -1,46 +1,73 @@
 package com.moviesandchill.chatservice.service.impl;
 
-import com.moviesandchill.chatservice.entity.Message;
+import com.moviesandchill.chatservice.dto.message.MessageDto;
+import com.moviesandchill.chatservice.dto.message.NewMessageDto;
+import com.moviesandchill.chatservice.mapper.MessageMapper;
 import com.moviesandchill.chatservice.repository.MessageRepository;
 import com.moviesandchill.chatservice.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public class MessageServiceImpl implements MessageService {
 
-    private final MessageRepository messageRepository;
+    private MessageRepository messageRepository;
 
-    public MessageServiceImpl(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
+    private SimpMessagingTemplate simpMessagingTemplate;
+
+    private MessageMapper messageMapper;
+
+    @Override
+    public List<MessageDto> getAllMessages() {
+        var messages = messageRepository.findAll();
+        return messageMapper.mapToDto(messages);
     }
 
     @Override
-    public List<Message> getAllMessages() {
-        return messageRepository.findAll();
+    public MessageDto addMessage(NewMessageDto newMessageDto) {
+        var message = messageMapper.mapToEntity(newMessageDto);
+        message = messageRepository.save(message);
+        var messageDto = messageMapper.mapToDto(message);
+
+        var chatId = message.getChatId();
+        simpMessagingTemplate.convertAndSend("/chats/" + chatId, messageDto);
+        return messageDto;
     }
 
     @Override
-    public Optional<Message> getMessageById(long messageId) {
-        return messageRepository.findByMessageId(messageId);
+    public List<MessageDto> getMessagesByChatId(long chatId) {
+        var messages = messageRepository.findAllByChatId(chatId);
+        return messageMapper.mapToDto(messages);
     }
 
     @Override
-    public List<Message> getMessagesByChatId(long chatId) {
-        return messageRepository.findByChatId(chatId);
-    }
-
-    @Override
-    public Message addMessage(Message message) {
-        return messageRepository.save(message);
+    public MessageDto getMessageById(long messageId) {
+        var message = messageRepository.getOne(messageId);
+        return messageMapper.mapToDto(message);
     }
 
     @Override
     public void deleteMessageById(long messageId) {
         messageRepository.deleteByMessageId(messageId);
+    }
+
+    @Autowired
+    public void setMessageRepository(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+    }
+
+    @Autowired
+    public void setSimpMessagingTemplate(SimpMessagingTemplate simpMessagingTemplate) {
+        this.simpMessagingTemplate = simpMessagingTemplate;
+    }
+
+    @Autowired
+    public void setMessageMapper(MessageMapper messageMapper) {
+        this.messageMapper = messageMapper;
     }
 }

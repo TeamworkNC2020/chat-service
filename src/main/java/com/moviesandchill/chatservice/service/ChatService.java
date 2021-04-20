@@ -1,14 +1,18 @@
 package com.moviesandchill.chatservice.service;
 
-import com.moviesandchill.chatservice.entity.Chat;
+import com.moviesandchill.chatservice.dto.chat.ChatDto;
+import com.moviesandchill.chatservice.dto.chat.NewChatDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ChatService {
-    List<Chat> getAllChats();
+    List<ChatDto> getAllChats();
 
-    Optional<Chat> getChatById(long chatId);
+    ChatDto addChat(NewChatDto newChatDto);
+
+    void deleteAllChats();
+
+    ChatDto getChatById(long chatId);
 
     void deleteChatById(long chatId);
 }
