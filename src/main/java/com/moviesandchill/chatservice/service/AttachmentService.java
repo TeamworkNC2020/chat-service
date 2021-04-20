@@ -1,14 +1,18 @@
 package com.moviesandchill.chatservice.service;
 
-import com.moviesandchill.chatservice.entity.Attachment;
+import com.moviesandchill.chatservice.dto.attachment.AttachmentDto;
+import com.moviesandchill.chatservice.dto.attachment.NewAttachmentDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AttachmentService {
-    List<Attachment> getAllAttachments();
+    List<AttachmentDto> getAllAttachments();
 
-    Optional<Attachment> getAttachmentById(long attachmentId);
+    AttachmentDto addAttachment(NewAttachmentDto dto);
+
+    void deleteAllAttachments();
+
+    AttachmentDto getAttachmentById(long attachmentId);
 
     void deleteAttachmentById(long attachmentId);
 }
