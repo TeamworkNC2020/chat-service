@@ -10,7 +10,11 @@ public interface MessageService {
 
     MessageDto addMessage(NewMessageDto newMessageDto);
 
-    List<MessageDto> getMessagesByChatId(long chatId);
+    void deleteAllMessages();
+
+    List<MessageDto> getAllMessagesByChatId(long chatId);
+
+    void deleteAllMessagesByChatId(long chatId);
 
     MessageDto getMessageById(long messageId);
 

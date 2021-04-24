@@ -1,6 +1,7 @@
 package com.moviesandchill.chatservice.controller;
 
 import com.moviesandchill.chatservice.dto.message.MessageDto;
+import com.moviesandchill.chatservice.dto.message.NewMessageDto;
 import com.moviesandchill.chatservice.service.MessageService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,16 @@ public class MessageController {
     @GetMapping()
     private List<MessageDto> getAllMessages() {
         return messageService.getAllMessages();
+    }
+
+    @PostMapping
+    MessageDto addMessage(NewMessageDto newMessageDto) {
+        return messageService.addMessage(newMessageDto);
+    }
+
+    @DeleteMapping
+    void deleteAllMessages() {
+        messageService.deleteAllMessages();
     }
 
     @GetMapping("/{id}")
