@@ -8,14 +8,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        // FIXME
         registry.addMapping("/**")
                 .allowedOrigins(
                         "http://localhost:4200",
+                        "https://localhost:4200",
                         "http://localhost:8080",
-                        "http://localhost:8081",
-                        "https://mak-21-stream.herokuapp.com",
+                        "https://localhost:8080",
+                        "https://localhost:8081",
+                        "http://mac21-chat.herokuapp.com",
                         "https://mac21-chat.herokuapp.com")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
                 .allowCredentials(true);
     }
 }

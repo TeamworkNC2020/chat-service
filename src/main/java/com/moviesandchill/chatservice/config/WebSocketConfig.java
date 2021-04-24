@@ -12,12 +12,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOrigins(
-                        "http://localhost:4200",
-                        "http://localhost:8080",
-                        "http://localhost:8081",
-                        "https://mak-21-stream.herokuapp.com",
-                        "https://mac21-chat.herokuapp.com")
                 .withSockJS();
     }
 
