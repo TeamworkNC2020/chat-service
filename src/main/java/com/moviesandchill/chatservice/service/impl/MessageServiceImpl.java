@@ -3,6 +3,7 @@ package com.moviesandchill.chatservice.service.impl;
 import com.moviesandchill.chatservice.dto.message.MessageDto;
 import com.moviesandchill.chatservice.dto.message.NewMessageDto;
 import com.moviesandchill.chatservice.mapper.MessageMapper;
+import com.moviesandchill.chatservice.repository.ChatRepository;
 import com.moviesandchill.chatservice.repository.MessageRepository;
 import com.moviesandchill.chatservice.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import java.util.List;
 @Service
 @Transactional
 public class MessageServiceImpl implements MessageService {
+
+    private ChatRepository chatRepository;
 
     private MessageRepository messageRepository;
 
@@ -35,14 +38,24 @@ public class MessageServiceImpl implements MessageService {
         var messageDto = messageMapper.mapToDto(message);
 
         var chatId = message.getChatId();
-        simpMessagingTemplate.convertAndSend("/chats/" + chatId, messageDto);
+        simpMessagingTemplate.convertAndSend("/topic/chats/" + chatId + "/messages", messageDto);
         return messageDto;
     }
 
     @Override
-    public List<MessageDto> getMessagesByChatId(long chatId) {
+    public void deleteAllMessages() {
+        messageRepository.deleteAll();
+    }
+
+    @Override
+    public List<MessageDto> getAllMessagesByChatId(long chatId) {
         var messages = messageRepository.findAllByChatId(chatId);
         return messageMapper.mapToDto(messages);
+    }
+
+    @Override
+    public void deleteAllMessagesByChatId(long chatId) {
+        messageRepository.deleteAll();
     }
 
     @Override
@@ -54,6 +67,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void deleteMessageById(long messageId) {
         messageRepository.deleteByMessageId(messageId);
+    }
+
+    @Autowired
+    public void setChatRepository(ChatRepository chatRepository) {
+        this.chatRepository = chatRepository;
     }
 
     @Autowired

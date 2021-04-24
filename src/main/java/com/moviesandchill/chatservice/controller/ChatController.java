@@ -23,7 +23,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public ChatDto addChat(NewChatDto newChatDto) {
+    public ChatDto addChat(@RequestBody NewChatDto newChatDto) {
         return chatService.addChat(newChatDto);
     }
 
