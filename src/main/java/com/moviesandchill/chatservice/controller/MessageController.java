@@ -25,7 +25,7 @@ public class MessageController {
     }
 
     @PostMapping
-    MessageDto addMessage(NewMessageDto newMessageDto) {
+    MessageDto addMessage(@RequestBody NewMessageDto newMessageDto) {
         return messageService.addMessage(newMessageDto);
     }
 
