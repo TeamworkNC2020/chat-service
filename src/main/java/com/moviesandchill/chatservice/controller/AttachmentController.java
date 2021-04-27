@@ -26,7 +26,7 @@ public class AttachmentController {
     }
 
     @PostMapping
-    public AttachmentDto addAttachment(NewAttachmentDto attachmentDto) {
+    public AttachmentDto addAttachment(@RequestBody NewAttachmentDto attachmentDto) {
         return attachmentService.addAttachment(attachmentDto);
     }
 
