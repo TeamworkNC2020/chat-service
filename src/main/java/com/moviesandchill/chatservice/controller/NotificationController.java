@@ -21,12 +21,24 @@ public class NotificationController {
 
 
     @GetMapping
-    private List<NotificationDto> getAllNotifications() {
+    private List<NotificationDto> getNotifications(@RequestParam(name = "user_id", required = false) Long userId) {
+        if (userId != null) {
+            return notificationService.getNotificationsByUserId(userId);
+        }
         return notificationService.getAllNotifications();
     }
 
     @PostMapping
     private NotificationDto addNotification(@RequestBody NewNotificationDto newNotificationDto) {
         return notificationService.addNotification(newNotificationDto);
+    }
+
+    @DeleteMapping
+    private void deleteNotifications(@RequestParam(name = "user_id", required = false) Long userId) {
+        if (userId != null) {
+            notificationService.deleteNotificationsByUserId(userId);
+            return;
+        }
+        notificationService.deleteAllNotifications();
     }
 }
