@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    List<Message> findAllByChatId(long chatId);
+    List<Message> findAllByChatIdEquals(long chatId);
 
     Optional<Message> findByMessageId(long messageId);
 
     List<Message> findByChatId(long chatId);
 
-    void deleteByMessageId(long messageId);
+    void deleteByMessageIdEquals(long messageId);
 }

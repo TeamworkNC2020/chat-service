@@ -49,7 +49,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageDto> getAllMessagesByChatId(long chatId) {
-        var messages = messageRepository.findAllByChatId(chatId);
+        var messages = messageRepository.findAllByChatIdEquals(chatId);
         return messageMapper.mapToDto(messages);
     }
 
@@ -66,7 +66,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void deleteMessageById(long messageId) {
-        messageRepository.deleteByMessageId(messageId);
+        messageRepository.deleteByMessageIdEquals(messageId);
     }
 
     @Autowired
