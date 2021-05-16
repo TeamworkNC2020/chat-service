@@ -38,7 +38,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         var userId = notification.getUserId();
 
-        simpMessagingTemplate.convertAndSend("/users/" + userId + "/notifications", notificationDto);
+        simpMessagingTemplate.convertAndSend("/topic/users/" + userId + "/notifications", notificationDto);
         return notificationDto;
     }
 
