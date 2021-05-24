@@ -58,6 +58,11 @@ public class NotificationServiceImpl implements NotificationService {
         notificationRepository.deleteAllByUserId(userId);
     }
 
+    @Override
+    public void deleteNotification(long notificationId) {
+        notificationRepository.deleteById(notificationId);
+    }
+
     @Autowired
     public void setNotificationRepository(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;

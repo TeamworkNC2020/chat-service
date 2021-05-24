@@ -15,4 +15,6 @@ public interface NotificationService {
     List<NotificationDto> getNotificationsByUserId(long userId);
 
     void deleteNotificationsByUserId(long userId);
+
+    void deleteNotification(long notificationId);
 }
