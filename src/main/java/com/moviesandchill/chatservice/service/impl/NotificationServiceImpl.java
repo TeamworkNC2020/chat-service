@@ -36,7 +36,7 @@ public class NotificationServiceImpl implements NotificationService {
         notification = notificationRepository.save(notification);
         var notificationDto = notificationMapper.mapToDto(notification);
 
-        var userId = notification.getUserId();
+        var userId = notification.getRecipientId();
 
         simpMessagingTemplate.convertAndSend("/topic/users/" + userId + "/notifications", notificationDto);
         return notificationDto;
@@ -49,13 +49,13 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public List<NotificationDto> getNotificationsByUserId(long userId) {
-        List<Notification> notifications = notificationRepository.getAllByUserId(userId);
+        List<Notification> notifications = notificationRepository.getAllByRecipientId(userId);
         return notificationMapper.mapToDto(notifications);
     }
 
     @Override
     public void deleteNotificationsByUserId(long userId) {
-        notificationRepository.deleteAllByUserId(userId);
+        notificationRepository.deleteAllByRecipientId(userId);
     }
 
     @Override

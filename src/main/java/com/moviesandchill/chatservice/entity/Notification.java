@@ -3,7 +3,6 @@ package com.moviesandchill.chatservice.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notifications")
@@ -14,11 +13,23 @@ public class Notification {
     private long notificationId;
 
     @Column(nullable = false)
-    private long userId;
+    private long recipientId;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private long senderId;
 
+    @Column(nullable = false)
+    private String senderName;
+
+    @Column(nullable = false)
     private String text;
+
+    private String pictureUrl;
+
+    private String type;
+
+    private String roomUrl;
+
+    private String filmTitle;
 }
 

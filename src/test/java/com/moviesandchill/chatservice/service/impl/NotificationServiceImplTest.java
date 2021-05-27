@@ -32,8 +32,8 @@ class NotificationServiceImplTest {
 
     @Test
     void getAllNotifications() {
-        var newNotificationDto1 = new NewNotificationDto(1, "a");
-        var newNotificationDto2 = new NewNotificationDto(2, "b");
+        var newNotificationDto1 = createNewInviteNotificationDto(1, 2, "first");
+        var newNotificationDto2 = createNewFriendRequestNotificationDto(1, 2);
         notificationService.addNotification(newNotificationDto1);
         notificationService.addNotification(newNotificationDto2);
 
@@ -46,18 +46,18 @@ class NotificationServiceImplTest {
     @Test
     @SneakyThrows
     void addNotification() {
-        var newNotificationDto = new NewNotificationDto(1, "a");
+        var newNotificationDto = createNewInviteNotificationDto(1, 1, "first");
 
         var notificationDto = notificationService.addNotification(newNotificationDto);
 
-        assertThat(notificationDto.getUserId()).isEqualTo(newNotificationDto.getUserId());
+        assertThat(notificationDto.getRecipientId()).isEqualTo(newNotificationDto.getRecipientId());
         assertThat(notificationDto.getText()).isEqualTo(newNotificationDto.getText());
     }
 
     @Test
     void deleteAllNotifications() {
-        var newNotificationDto1 = new NewNotificationDto(1, "a");
-        var newNotificationDto2 = new NewNotificationDto(2, "b");
+        var newNotificationDto1 = createNewInviteNotificationDto(1, 1, "first");
+        var newNotificationDto2 = createNewFriendRequestNotificationDto(1, 1);
         notificationService.addNotification(newNotificationDto1);
         notificationService.addNotification(newNotificationDto2);
 
@@ -69,9 +69,9 @@ class NotificationServiceImplTest {
 
     @Test
     void getNotificationsByUserId() {
-        var newNotificationDto1 = new NewNotificationDto(1, "a");
-        var newNotificationDto2 = new NewNotificationDto(2, "b");
-        var newNotificationDto3 = new NewNotificationDto(1, "c");
+        var newNotificationDto1 = createNewInviteNotificationDto(1, 2, "first");
+        var newNotificationDto2 = createNewFriendRequestNotificationDto(1, 4);
+        var newNotificationDto3 = createNewInviteNotificationDto(2, 3, "second");
         notificationService.addNotification(newNotificationDto1);
         notificationService.addNotification(newNotificationDto2);
         notificationService.addNotification(newNotificationDto3);
@@ -83,9 +83,9 @@ class NotificationServiceImplTest {
 
     @Test
     void deleteNotificationsByUserId() {
-        var newNotificationDto1 = new NewNotificationDto(1, "a");
-        var newNotificationDto2 = new NewNotificationDto(2, "b");
-        var newNotificationDto3 = new NewNotificationDto(1, "c");
+        var newNotificationDto1 = createNewInviteNotificationDto(1, 2, "first");
+        var newNotificationDto2 = createNewFriendRequestNotificationDto(3, 4);
+        var newNotificationDto3 = createNewInviteNotificationDto(3, 3, "second");
         notificationService.addNotification(newNotificationDto1);
         notificationService.addNotification(newNotificationDto2);
         notificationService.addNotification(newNotificationDto3);
@@ -94,5 +94,29 @@ class NotificationServiceImplTest {
         var notificationDtos = notificationService.getNotificationsByUserId(1);
 
         assertThat(notificationDtos).isEmpty();
+    }
+
+    private NewNotificationDto createNewFriendRequestNotificationDto(long recipientId, long senderId) {
+        return NewNotificationDto.builder()
+                .type("friend_request")
+                .recipientId(recipientId)
+                .senderId(senderId)
+                .senderName("user with id " + senderId)
+                .pictureUrl("/images/" + senderId)
+                .text("user with " + senderId + " send friend request")
+                .build();
+    }
+
+    private NewNotificationDto createNewInviteNotificationDto(long recipientId, long senderId, String roomTitle) {
+        return NewNotificationDto.builder()
+                .type("friend_request")
+                .recipientId(recipientId)
+                .senderId(senderId)
+                .senderName("user with id " + senderId)
+                .pictureUrl("/images/" + senderId)
+                .roomUrl("/films/" + roomTitle)
+                .filmTitle(roomTitle)
+                .text("user with " + senderId + " invite you to film " + roomTitle)
+                .build();
     }
 }
