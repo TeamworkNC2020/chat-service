@@ -109,7 +109,7 @@ class NotificationServiceImplTest {
 
     private NewNotificationDto createNewInviteNotificationDto(long recipientId, long senderId, String roomTitle) {
         return NewNotificationDto.builder()
-                .type("friend_request")
+                .type("stream_invite")
                 .recipientId(recipientId)
                 .senderId(senderId)
                 .senderName("user with id " + senderId)
