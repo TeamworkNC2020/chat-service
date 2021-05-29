@@ -1,13 +1,11 @@
 package com.moviesandchill.chatservice.security;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.Data;
 
 import java.security.Principal;
 
-@ToString
-@EqualsAndHashCode
+@Data
 @AllArgsConstructor
 public class SimplePrincipal implements Principal {
 
